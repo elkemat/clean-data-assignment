@@ -82,4 +82,4 @@ selected_data <- tbl_df(selected_data)
 selected_data_grouped <- group_by(selected_data, subject, activity)
 mean_data_grouped <- summarise_each(selected_data_grouped, funs(mean), 
                                     tBodyAcc.mean...X:fBodyBodyGyroJerkMag.meanFreq..)
-write.table(mean_data_grouped, "./UCI HAR Dataset/mean_data_grouped.txt")
+write.table(mean_data_grouped, "./UCI HAR Dataset/mean_data_grouped.txt", row.names = FALSE)
