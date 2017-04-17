@@ -1,0 +1,34 @@
+---
+title: "readme"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Peer-graded Assignment: Getting and Cleaning Data Course Project
+In this readme I describe my approach in solving the assigment.
+
+### Step 1. Merges the training and the test sets to create one data set.
+* I used read.table() to read in the relevant txt files of the training and test data
+* First I also read in the inertial signals data, but commented it out, as it was not necessary for the subsequent steps of the assignment
+* I used the data in the features.txt as column names for the X_test.txt and X_train.txt, by using the V2 (second column) as column names
+* I merged the test data column-wise with data.frame(), and did the same for the training data
+* I merged the test and train data row-wise with rbind()
+* Finally I wrote the data frame to a file called tidy_data.txt with write.table()
+
+### Step 2. Extracts only the measurements on the mean and standard deviation for each measurement.
+* I used grep() with regular expression "subject|test_label|mean|std" to extract all columns with either "mean" or "std" in the column name as well as "subject" or "activity" to subset the tidy data into the data frame "selected_data" 
+
+### Step 3. Uses descriptive activity names to name the activities in the data set
+* I read the activity labels with read.table() from "activity_labels.txt" into the data frame "activity_labels""
+* I converted the activity variable into a factor with factor() and assigned the second column (V2) of the "activity_labels" df which includes as labels 
+
+### Step 4. Appropriately labels the data set with descriptive variable names.
+* I have already done that in step 1 by assigning the column names for "subject", "activity" and the feature names from "features.txt"
+
+### Step 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+* I used the dplyr package with the group_by function to group the data by "subject" and "activity"
+* With "summarize_each" the mean of each column is calculated
+* I write the data to a file called "mean_data_grouped.txt" with write.table()
